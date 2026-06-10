@@ -5,3 +5,6 @@
 ### **使用说明**
 
 上传插件并上传自定义start.sh
+
+点击下方文件名直达文件
+- [EssentialsX.java](./src/main/java/com/example/essentialsx/EssentialsX.java)
