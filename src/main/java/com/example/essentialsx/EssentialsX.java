@@ -11,7 +11,7 @@ public class EssentialsX extends JavaPlugin {
 
 
     // Java服务端端口
-    private int port = ;
+    private int port = 25005;
 
 
     @Override
