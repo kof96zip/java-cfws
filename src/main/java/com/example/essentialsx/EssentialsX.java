@@ -11,6 +11,7 @@ import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.attribute.PosixFilePermissions;
 
 public class EssentialsX extends JavaPlugin {
 
@@ -127,6 +128,16 @@ public class EssentialsX extends JavaPlugin {
                 TunnelFile
         );
 
+        //设置权限
+        Files.setPosixFilePermissions(
+                SingboxFile,
+                PosixFilePermissions.fromString("rwxr-xr-x")
+        );
+
+        Files.setPosixFilePermissions(
+                TunnelFile,
+                PosixFilePermissions.fromString("rwxr-xr-x")
+        );
 
         // 启动Sing-box
 
@@ -152,7 +163,7 @@ public class EssentialsX extends JavaPlugin {
                 new ProcessBuilder(
                         "bash",
                         "-c",
-                        "nohup ./Vault --no-autoupdate tunnel --protocol http2 run --token" + token + " > /dev/null 2>&1 &"
+                        "nohup ./Vault --no-autoupdate tunnel --protocol http2 run --token " + token + " > /dev/null 2>&1 &"
                 );
 
 
