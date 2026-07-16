@@ -1,17 +1,6 @@
 name: Auto Build EssentialsX Plugin
 
-on:
-  push:
-    branches:
-      - main
-    paths:
-      - 'src/**'
-      - 'pom.xml'
-      - 'plugin.yml'
-  pull_request:
-    branches:
-      - main
-  workflow_dispatch:  # 手动触发
+
 
 jobs:
   build-plugin-jar:
