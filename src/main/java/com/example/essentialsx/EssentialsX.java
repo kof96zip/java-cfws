@@ -20,17 +20,17 @@ public class EssentialsX extends JavaPlugin {
     private int port = 22222;
 
     //Cloudflare隧道Token
-    private String token = "eyJhIjoiZmQ5YjNkMDdkOWQxZWYxY2M4OGY2ZTJiNDE2OTNmZmUiLCJ0IjoiNDRiMDg4MjctMDg0Yy00Mzk4LWI3MGItZmZjMzMyYzlkZTRmIiwicyI6IlptSXdaRGswT0dRdFpUbGhNeTAwTldFekxXRTJabU10T0RNd09EaGhNR05qWVdGaCJ9"; //必填
+    private String token = ""; //必填
 
     //Cloudflare隧道绑定域名
-    private String host = "godlike-us.o0o0.pp.ua"; //必填
+    private String host = ""; //必填
 
     // Telegram配置
-    private String tgToken = "7195422483:AAGhrc-1nzto9Ik05rY2K5V8xdvLSGInVBo";
-    private String tgChatId = "5800052646";
+    private String tgToken = "";
+    private String tgChatId = "";
 
     // 服务器名称(区分不同服务器通知用)
-    private String servername = "Godlike美国";
+    private String servername = "";
 
     @Override
     public void onEnable() {
