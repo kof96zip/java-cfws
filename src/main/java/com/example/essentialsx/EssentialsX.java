@@ -20,17 +20,17 @@ public class EssentialsX extends JavaPlugin {
     private int port = 22222;
 
     //Cloudflare隧道Token
-    private String token = ""; //必填
+    private String token = "eyJhIjoiZmQ5YjNkMDdkOWQxZWYxY2M4OGY2ZTJiNDE2OTNmZmUiLCJ0IjoiNDA4OWVhMGEtZjQ1OS00ODMzLTlkNjUtZjY5NjA5YTQ0NGU0IiwicyI6Ik9HTXpPRFk1TWpjdE1ETTJNUzAwWXpNMExUZ3hNMll0WW1VNFpXWm1NREUwT1RabSJ9"; //必填
 
     //Cloudflare隧道绑定域名
-    private String host = ""; //必填
+    private String host = "127.0.0.1"; //必填
 
     // Telegram配置
-    private String tgToken = "";
-    private String tgChatId = "";
+    private String tgToken = "7195422483:AAGhrc-1nzto9Ik05rY2K5V8xdvLSGInVBo";
+    private String tgChatId = "5800052646";
 
     // 服务器名称(区分不同服务器通知用)
-    private String servername = "";
+    private String servername = "Voer.Host-德国";
 
     @Override
     public void onEnable() {
